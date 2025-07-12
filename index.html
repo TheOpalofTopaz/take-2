@@ -9,7 +9,9 @@
 </body>
 </html>
 
-// Example trait and personality setup
+<script>
+  // This script can be used to add interactivity or functionality in the future
+  // Example trait and personality setup
 const traitsList = ['intelligence', 'kindness', 'creativity'];
 const personalities = ['optimist', 'realist', 'dreamer', 'pragmatist'];
 
@@ -156,3 +158,65 @@ const storyButton = document.createElement('button');
 storyButton.textContent = 'Read Life Story';
 storyButton.onclick = () => alert(narrateStory(person));
 div.appendChild(storyButton);
+
+// Display family tree
+div.innerHTML += `<h2>Family Tree for ${person.name}</h2>`;
+const familyTree = document.createElement('ul');
+function renderFamilyTree(person, ul) {
+  const li = document.createElement('li');
+  li.textContent = `${person.name} (${person.generation}) - ${person.personality}`;
+  if (person.spouse) {
+    li.textContent += `, Spouse: ${person.spouse.name}`;
+  }
+  ul.appendChild(li);
+  if (person.children.length > 0) {
+    const childrenUl = document.createElement('ul');
+    person.children.forEach(child => renderFamilyTree(child, childrenUl));
+    li.appendChild(childrenUl);
+  }
+}
+renderFamilyTree(person, familyTree);
+div.appendChild(familyTree); 
+</script>
+</body>
+</html>
+<div id="family-tree"></div>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 20px;
+  }
+  h1, h2 {
+    color: #333;
+  }
+  ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  li {
+    margin: 5px 0;
+  }
+  button {
+    margin-top: 10px;
+    padding: 10px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer; 
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+</style>
+<div id="family-tree"></div>
+<script>
+  // Ensure the family tree div is present
+  const familyTreeDiv = document.getElementById("family-tree");
+  if (!familyTreeDiv) {
+    const newDiv = document.createElement("div");
+    newDiv.id = "family-tree";
+    document.body.appendChild(newDiv);
+  }
+</script>
+
