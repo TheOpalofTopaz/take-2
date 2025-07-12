@@ -220,3 +220,41 @@ div.appendChild(familyTree);
   }
 </script>
 
+// Create a function to pick a random name from a list
+function pickRandomName(names) {
+    if (names.length === 0) {
+        return "No names available to pick.";
+    }
+    const randomIndex = Math.floor(Math.random() * names.length);
+    return names[randomIndex];
+}
+
+// Example usage of the pickRandomName function
+// This can be used to randomly select a name from the provided list of names (some are duplicate names)
+const names = ["Alice", "Bob", "Charlie", "Diana", "Ethan", "Fiona", "George", "Hannah", "Ian", "Jasmine", "Kevin", "Lily", "Michael", "Nina", "Oscar", "Paula", "Quentin", "Rachel", "Sam", "Tina", "Ursula", "Victor", "Wendy", "Xander", "Yara", "Zane", "Ava", "Liam", "Olivia", "Noah", "Emma", "Sophia", "James", "Isabella", "Lucas", "Mia", "Benjamin", "Charlotte", "Elijah", "Amelia", "Alexander", "Harper", "William", "Evelyn", "Daniel", "Abigail", "Matthew", "Ella", "Henry", "Scarlett", "Jackson", "Grace", "Sebastian", "Chloe", "David", "Victoria", "Carter", "Aria", "Owen", "Zoe", "Gabriel", "Luna", "Wyatt", "Layla", "Jayden", "Riley", "John", "Aubrey", "Levi", "Hannah", "Isaac", "Addison", "Mason", "Sofia", "Luke", "Camila", "Anthony", "Aaliyah", "Dylan", "Brooklyn", "Lincoln", "Nora", "Christopher", "Savannah", "Joshua", "Audrey", "Andrew", "Bella", "Nathan", "Claire", "Isaiah", "Skylar", "Eli", "Lucy", "Aaron", "Paisley", "Charles", "Everly", "Thomas", "Anna", "Caleb", "Allison", "Josiah", "Natalie", "Hunter", "Lily", "Christian", "Samantha", "Jonathan", "Leah", "Cameron", "Ariana", "Ezekiel", "Mila", "Robert", "Archer", "Adam", "Madison", "Jaxon", "Piper", "Grayson", "Serenity", "Leo", "Kennedy", "Asher", "Kinsley", "Dominic", "Sadie", "Jace", "Aurora", "Colton", "Hailey", "Austin", "Gianna", "Ezra", "Nevaeh", "Ian", "Lydia", "Jordan", "Ellie", "Cooper", "Stella", "Xavier", "Alyssa", "Jose", "Mackenzie", "Jaxson", "Peyton", "Jason", "Rylee", "Chase", "Madelyn", "Brody", "Kylie", "Sawyer", "Eva", "Gavin", "Alice", "Blake", "Clara", "Miles", "Vivian", "Ryder", "Sophie", "Bentley", "Sadie", "Axel", "Aubree", "Nolan", "Lila", "Zachary", "Elena", "Harrison", "Maya", "Tyler", "Julia", "Brayden", "Cora", "Nathaniel", "Sienna", "Luis", "Luna", "Adam", "Madeline", "Evan", "Katherine", "Jasper", "Alyssa", "Maxwell", "Isla", "Patrick", "Elliana", "Victor", "Emilia", "Brandon", "Samantha", "Carlos", "Avery", "Dominic", "Maya", "Elias", "Autumn", "Gage", "Lily", "Hugo", "Zoe", "Ivan", "Mila", "Jorge", "Layla", "Kaden", "Riley", "Leonardo", "Scarlett", "Marcus", "Aria", "Nico", "Chloe", "Oscar", "Grace", "Paxton", "Hannah", "Quinn", "Aubrey", "Rafael", "Sofia", "Silas", "Victoria", "Tucker", "Addison", "Uriel", "Brooklyn", "Victor", "Savannah", "Wesley", "Audrey", "Xander", "Bella", "Yusuf", "Claire", "Zion", "Skylar", "Aiden", "Lucy", "Braylon", "Paisley", "Caden", "Everly", "Dante", "Anna", "Emilio", "Allison", "Finn", "Natalie", "Griffin", "Lily", "Hayden", "Samantha", "Ivan", "Ariana", "Jett", "Mia", "Kieran", "Luna", "Landon", "Zoe", "Malachi", "Riley", "Nash", "Aubree", "Omar", "Kinsley", "Preston", "Sadie", "Quentin", "Eva", "Ronan", "Alice", "Santiago", "Clara", "Tanner", "Vivian", "Uriah", "Sophie", "Vance", "Sadie", "Winston", "Alyssa", "Xavier", "Mackenzie", "Yahir", "Piper", "Zander", "Madelyn"];
+const randomName = pickRandomName(names);
+console.log("Randomly picked name:", randomName);
+
+function readlifeStory() {
+  const generations = 3;
+  const person = createFamilyTree(randomName, generations);
+  alert(narrateStory(person));
+  const familyTreeDiv = document.getElementById("family-tree");
+  familyTreeDiv.innerHTML = `<h2>Family Tree for ${person.name}</h2>`;
+  const familyTree = document.createElement('ul');
+  renderFamilyTree(person, familyTree);
+  familyTreeDiv.appendChild(familyTree);
+  familyTreeDiv.innerHTML += `
+  <br><em>Life Events:</em><ul>
+    ${person.events.map(e => `<li>${e.timestamp.split('T')[0]}: ${e.description}</li>`).join('')}
+  </ul>
+  `;
+  const storyButton = document.createElement('button');
+  storyButton.textContent = 'Read Life Story';
+  storyButton.onclick = () => alert(narrateStory(person));
+  familyTreeDiv.appendChild(storyButton);
+  familyTreeDiv.innerHTML += `<p>Randomly picked name: ${randomName}</p>`;
+  familyTreeDiv.style.display = 'block';
+  document.body.appendChild(familyTreeDiv);
+  familyTreeDiv.scrollIntoView({ behavior: 'smooth' });
+}
